@@ -21,7 +21,10 @@ exports.propertyValidation=(req,res,next)=>{
 }
 
 exports.userValidation=(req,res,next)=>{
-    req.check('name', 'Name is required').notEmpty()
+    req.check('fname', 'First Name is required').notEmpty()
+    req.check('lname', 'Last Name is required').notEmpty()
+    req.check('dob', 'Date of birth is required').notEmpty()
+ 
     req.check('email','Email is required').notEmpty()
     .isEmail()
     .withMessage('Invalid Email')

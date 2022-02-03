@@ -15,7 +15,7 @@ const propertySchema=new mongoose.Schema({
         type:Boolean,
         required:true
     },
-    product_price:{
+    property_price:{
         type:Number,
         required:true
     }, 

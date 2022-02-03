@@ -8,7 +8,9 @@ const sendEmail = require('../utils/setEmail')
 // register user
 exports.userRegister = async (req, res) => {
     let user = new User({
-        name: req.body.name,
+        fname: req.body.fname,
+        lname:req.body.lname,
+        dob:req.body.dob,
         email: req.body.email,
         password: req.body.password
     })
@@ -129,8 +131,8 @@ exports.signIn = async (req, res) => {
     res.cookie('myCookie', token, { expire: Date.now() + 999999 })
 
     //return user information to frontend
-    const { _id, name, role } = user
-    return res.json({ token, user: { name, email, role, _id } })
+    const { _id, fname, role } = user
+    return res.json({ token, user: { fname, email, role, _id } })
 
     // check if user is verified or not
     if (!user.isVerified()) {
@@ -160,6 +162,8 @@ exports.forgetPassword = async (req, res) => {
     if (!token) {
         return res.status(400).json({ error: "Something went wrong" })
     }
+    const url=process.env.FRONTEND_URL+'\/user\/resetpassword\/'+token.token
+
     //send email
     sendEmail({
         from: 'no-reply@myemail.com',
@@ -167,7 +171,7 @@ exports.forgetPassword = async (req, res) => {
         subject: 'Password Reset Link',
         text: `Hello! \n\n Please reset your password by clicking the link below: \n\n http:\/\/${req.headers.host}\/api\/resetpassword\/${token.token}`,
         html: `<h1>Reset password link </h1>
-        <button><a href="${url}">Reset your email</a></button>`
+        <button><a href="${url}">Reset your password</a></button>`
 
     })
     res.json({ message: "Password reset link has been sent to your mail" })
