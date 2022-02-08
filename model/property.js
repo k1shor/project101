@@ -24,6 +24,10 @@ const propertySchema=new mongoose.Schema({
         required:true
 
     },
+    listing_type:{
+        type:String,
+        required:true
+    },
     property_image:{
         type:String,
         required:true

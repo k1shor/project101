@@ -6,10 +6,11 @@ exports.postProperty = async (req, res) => {
     let property = new Property({
         property_title: req.body.property_title,
         property_location: req.body.property_location,
-        property_availability: req.body.property_availability,
+        property_availability: true,
         property_desc: req.body.property_desc,
         property_price: req.body.property_price,
-        property_image: req.file.property_image,
+        listing_type:req.body.listing_type,
+        property_image: req.file.path,
         category: req.body.category
     })
     property = await property.save()
@@ -22,17 +23,10 @@ exports.postProperty = async (req, res) => {
 }
 
 // to show all Property 
-exports.showProperty = async (req, res) => {
-    let order = req.query.order ? req.query.order : 'asc'
-    let sortBy = req.query.order ? req.query.sortBy : '_id'
-    let limit = req.query.order ? parseInt(req.query.limit) : 200
-
+exports.showProperties=async(req,res)=>{
     const property = await Property.find()
-        .populate('category')
-        .sort([sortBy, order])
-        .limit(limit)
-    if (!property) {
-        return res.status(400).json({ error: "Something went wrong." })
+    if(!property){
+        return res.status(400).json({error:"something went wrong"})
     }
     res.send(property)
 }
@@ -41,7 +35,7 @@ exports.showProperty = async (req, res) => {
 exports.findProperty = async (req, res) => {
     const property = await Property.findById(req.params.id)
     if (!property) {
-        return res.status(400).json({ error: "Category not found." })
+        return res.status(400).json({ error: "Property not found." })
     }
     res.send(property)
 }
@@ -67,11 +61,12 @@ exports.updateProperty = async (req, res) => {
     const property = await Property.findByIdAndUpdate(
         req.params.id,
         {
-            property_name: req.body.property_name,
+            property_title: req.body.property_title,
             property_price: req.body.property_price,
-            countInStock: req.body.countInStock,
+            property_location: req.body.property_location,
             property_desc: req.body.property_desc,
-            property_image: req.file.path,
+            listing_type:req.body.listing_type,
+            // property_image: req.file.path,
             category: req.body.category
         },
         { new: true }
@@ -85,7 +80,7 @@ exports.updateProperty = async (req, res) => {
 
 // to show all property inside a category 
 exports.showProperty = async (req, res) => {
-    // const property = await Property.findById(req.params.category)
+    const property = await Property.findById(req.params.category)
     if (!Property) {
         return res.status(400).json({ error: "Something went wrong." })
     }

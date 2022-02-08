@@ -9,7 +9,7 @@ exports.propertyValidation=(req,res,next)=>{
         min:20
     })
     .withMessage('Description must be more than 20 characters.')
-    req.check('catagory','Category is required').notEmpty()
+    req.check('category','Category is required').notEmpty()
 
     const errors=req.validationErrors()
     if(errors){
@@ -44,3 +44,13 @@ exports.userValidation=(req,res,next)=>{
     next()
 }
 
+exports.categoryValidation=(req,res,next)=>{
+    req.check('category_name', 'Category Name is required').notEmpty()
+    const errors=req.validationErrors()
+    if(errors){
+        const showError = errors.map(error=>error.msg)[0]
+        return res.status(400).json({error:showError})
+    }
+
+    next()
+}

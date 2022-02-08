@@ -123,6 +123,10 @@ exports.signIn = async (req, res) => {
     if (!user.authenticate(password)) {
         return res.status(400).json({ error: "email and password doesnot match" })
     }
+    //check if user is verified or not
+    if (!user.isVerified) {
+        return res.status(400).json({ error: " Please verify your email first to continue." })
+    }
     //now generate token with user id and jwt secret
     const token = jwt.sign({ _id: user._id, user: user.role }, process.env.JWT_SECRET)
 
