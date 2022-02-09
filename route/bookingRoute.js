@@ -1,9 +1,10 @@
 const express=require('express')
+const { requireSignin } = require('../controller/authController')
 const { postbookings, bookingList, bookingDetails, updateStatus, deletebookings, userbookings } = require('../controller/bookingController')
 
 const router=express.Router()
 
-router.post('/postbookings',postbookings)
+router.post('/postbookings', postbookings)
 router.get('/bookinglist',bookingList)
 router.get('/bookingdetails/:id',bookingDetails)
 router.put('/updatestatus/:id',updateStatus)

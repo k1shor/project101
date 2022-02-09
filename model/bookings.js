@@ -3,23 +3,38 @@ const mongoose = require('mongoose')
 const{ObjectId}=mongoose.Schema
 
 const bookingSchema = new mongoose.Schema({
-    property:{
-        type:ObjectId,
-        ref:'Property',
-        required:true
-    },
-    status:{
+    property_title:{
         type:String,
-        default:'pending',
         required:true
     },
-    totalPrice:{
+    property_location:{
+        type:String,
+        required:true
+    },
+    property_availability:{
+        type:Boolean,
+        required:true
+    },
+    property_price:{
         type:Number,
         required:true
+    }, 
+    property_status:{
+        type:String,
+        required:true
+
     },
-    user:{
+    listing_type:{
+        type:String,
+        required:true
+    },
+    category:{
         type:ObjectId,
-        ref:'User',
+        required:true,
+        ref:'Category'
+    }, 
+    booked_by:{
+        type:String,
         required:true
     }
     

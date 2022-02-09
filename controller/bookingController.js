@@ -1,17 +1,21 @@
 const bookings = require('../model/bookings')
 
-exports.postbookings = async (req, res) => {
-    
-
+exports.postbookings = async (req, res) => {    
     let bookings = new bookings({
-        user: req.body.user,
-        property: req.body.property_title,
-    })
-    bookings = await bookings.save()
-    if (!bookings) {
-        return res.status(400).jsorn({ error: "the bookings cannot be completed" })
-    }
-    res.send(bookings)
+            property_title: req.body.property_title,
+            property_location: req.body.property_location,
+            property_availability: true,
+            property_price: req.body.property_price,
+            property_status: req.body.property_status,
+            listing_type:req.body.listing_type,
+            booked_by: req.body.booked_by,
+            category: req.body.category,
+        })
+        bookings = await bookings.save()
+        if (!bookings) {
+            return res.status(400).json({ error: "Something went wrong." })
+        }
+        res.send(bookings)
 }
 
 exports.bookingList = async (req, res) => {
