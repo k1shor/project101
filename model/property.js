@@ -37,6 +37,10 @@ const propertySchema=new mongoose.Schema({
         type:ObjectId,
         required:true,
         ref:'Category'
+    }, 
+    added_by:{
+        type:String,
+        required:true
     }
 
 },{timestamps:true})

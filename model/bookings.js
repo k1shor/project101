@@ -1,9 +1,11 @@
 const mongoose = require('mongoose')
 
-const{ObjectId}=mongoose.Schema
-
 const bookingSchema = new mongoose.Schema({
     property_title:{
+        type:String,
+        required:true
+    },
+    property_owner:{
         type:String,
         required:true
     },
@@ -16,7 +18,7 @@ const bookingSchema = new mongoose.Schema({
         required:true
     },
     property_price:{
-        type:Number,
+        type:String,
         required:true
     }, 
     property_status:{
@@ -29,14 +31,19 @@ const bookingSchema = new mongoose.Schema({
         required:true
     },
     category:{
-        type:ObjectId,
+        type:String,
         required:true,
         ref:'Category'
     }, 
     booked_by:{
         type:String,
         required:true
-    }
+    },
+    property_image:{
+        type:String,
+        required:true
+
+    },
     
 },{timestamps:true})
 

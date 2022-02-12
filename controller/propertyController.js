@@ -12,6 +12,7 @@ exports.postProperty = async (req, res) => {
         listing_type:req.body.listing_type,
         property_image: req.file.path,
         category: req.body.category,
+        added_by: req.body.added_by
     })
     property = await property.save()
     if (!property) {
