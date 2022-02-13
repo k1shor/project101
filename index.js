@@ -6,6 +6,7 @@ const CategoryRoute=require('./route/categoryRoute')
 const PropertyRoute=require('./route/propertyRoute')
 const AuthRoute=require('./route/authRoute')
 const BookingRoute=require('./route/bookingRoute')
+const ConsultationRoute = require('./route/consultationRoute')
 
 const morgan=require('morgan')
 const expressValidator=require('express-validator')
@@ -31,6 +32,7 @@ app.use('/api',CategoryRoute)
 app.use('/api',PropertyRoute)
 app.use('/api',AuthRoute)
 app.use('/api',BookingRoute)
+app.use('/api',ConsultationRoute)
 
 
 const port=process.env.PORT || 5000
